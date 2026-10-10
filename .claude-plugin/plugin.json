@@ -1,0 +1,25 @@
+{
+  "name": "writ",
+  "version": "1.0.3",
+  "description": "Writ turns a website into something you can call: read a page, collect a site, build a real API from it, or run a task on a site the user is signed in to.",
+  "author": {
+    "name": "Writ",
+    "email": "support@usewrit.app",
+    "url": "https://usewrit.app"
+  },
+  "homepage": "https://usewrit.app",
+  "repository": "https://github.com/usewrit/writ-plugins",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "web-scraping",
+    "browser-automation",
+    "website-to-api",
+    "api-generator",
+    "crawler",
+    "monitoring",
+    "authenticated-scraping",
+    "writ"
+  ]
+}

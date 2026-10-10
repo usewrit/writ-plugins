@@ -1,0 +1,27 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "usewrit",
+  "owner": {
+    "name": "Writ",
+    "email": "support@usewrit.app"
+  },
+  "metadata": {
+    "description": "Official Writ plugins. Any website, as an API you can call.",
+    "version": "1.0.3"
+  },
+  "plugins": [
+    {
+      "name": "writ",
+      "description": "Writ turns a website into something you can call: read a page, collect a site, build a real API from it, or run a task on a site the user is signed in to.",
+      "version": "1.0.3",
+      "author": {
+        "name": "Writ",
+        "email": "support@usewrit.app",
+        "url": "https://usewrit.app"
+      },
+      "source": "./",
+      "category": "productivity",
+      "homepage": "https://usewrit.app"
+    }
+  ]
+}

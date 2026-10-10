@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "writ-cloud": {
+      "type": "http",
+      "url": "https://api.usewrit.app/mcp"
+    }
+  }
+}
