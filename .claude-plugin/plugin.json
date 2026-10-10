@@ -1,6 +1,6 @@
 {
   "name": "writ",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Writ turns a website into something you can call: read a page, collect a site, build a real API from it, or run a task on a site the user is signed in to.",
   "author": {
     "name": "Writ",
@@ -21,5 +21,9 @@
     "monitoring",
     "authenticated-scraping",
     "writ"
-  ]
+  ],
+  "documentationUrl": "https://usewrit.app/docs/mcp",
+  "privacyPolicyUrl": "https://usewrit.app/privacy",
+  "termsOfServiceUrl": "https://usewrit.app/terms",
+  "supportUrl": "https://usewrit.app/contact"
 }
