@@ -1,6 +1,6 @@
 {
   "name": "writ",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "Writ turns a website into something you can call: read a page, collect a site, build a real API from it, or run a task on a site the user is signed in to.",
   "mcpServers": {
     "writ-cloud": {

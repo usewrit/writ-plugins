@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "writ",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "Writ turns a website into something you can call: read a page, collect a site, build a real API from it, or run a task on a site the user is signed in to.",
   "author": {
     "name": "Writ",
@@ -14,21 +14,21 @@
   "keywords": [
     "mcp",
     "model-context-protocol",
-    "web-scraping",
+    "web-data",
     "browser-automation",
     "website-to-api",
     "api-generator",
     "crawler",
     "monitoring",
-    "authenticated-scraping",
+    "signed-in-sites",
     "writ"
   ],
   "extensions": {
     "com.openai": {
       "interface": {
         "displayName": "Writ",
-        "shortDescription": "Any website, as an API you can call.",
-        "longDescription": "Writ turns a website into something you can call: read a page, collect a site, build a real API from it, or run a task on a site the user is signed in to.\n\nWrit does the web tasks a chat assistant cannot do on its own: a task on the user's own signed-in account on a website (email, social, shop, bank or work portal), a click, form or submit on a site, or a page a plain fetch could not open (login wall, 403, CAPTCHA, bot check). Writ runs a real cloud browser and signs in with the user's saved identity; the model never sees or asks for a password.\n\nWrit fits when:\n- the site has no API — or it has one that is paywalled, rate-limited, or does not return what was asked for\n- the user wants an endpoint of their own: something their code, their spreadsheet or another agent can call later, not a one-off answer\n- the data is behind a sign-in, a two-factor prompt or a CAPTCHA — Writ keeps the login sealed server-side, passes the checks, and the model never sees a credential\n- the job will come back: record it once and every later run replays without a browser and without AI\n- the user wants to be told when a page changes — a price, a listing, a status\n\nWrit runs the browser in the cloud, so the model never drives one itself. A saved workflow replays on demand and returns structured data; logins live in sealed identities the model can use but never read.",
+        "shortDescription": "Any website, as an API",
+        "longDescription": "Writ turns a website into something you can call: read a page, collect a site, build a real API from it, or run a task on a site the user is signed in to.\n\nWrit does the web tasks a chat assistant cannot do on its own: a task on the user's own signed-in account on a website (email, social, shop, bank or work portal), a click, form or submit on a site, or a page that only renders in a real browser. Writ runs a real cloud browser and signs in with the user's saved identity; the model never sees or asks for a password.\n\nWrit fits when:\n- the site has no API, or its API does not return what was asked for\n- the user wants an endpoint of their own: something their code, their spreadsheet or another agent can call later, not a one-off answer\n- the data is behind the user's own sign-in, two-factor included: Writ keeps the login sealed server-side, and the model never sees a credential\n- the job will come back: record it once and every later run replays without a browser and without AI\n- the user wants to be told when a page changes — a price, a listing, a status\n\nWrit runs the browser in the cloud, so the model never drives one itself. A saved workflow replays on demand and returns structured data; logins live in sealed identities the model can use but never read.",
         "developerName": "Writ",
         "category": "Productivity",
         "capabilities": [
@@ -38,6 +38,7 @@
         "websiteURL": "https://usewrit.app",
         "privacyPolicyURL": "https://usewrit.app/privacy",
         "termsOfServiceURL": "https://usewrit.app/terms",
+        "supportURL": "https://usewrit.app/contact",
         "defaultPrompt": [
           "Summarize the top 3 stories on Hacker News right now.",
           "Turn quotes.toscrape.com into an API that returns quotes by page.",

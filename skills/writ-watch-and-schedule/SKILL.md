@@ -18,11 +18,13 @@ compatibility: Needs the Writ Cloud MCP server (https://api.usewrit.app/mcp) con
 1. **Prove the selector on the live page.** Open it with `writ_browser_use` and pass that `session_id` to `writ_create_monitor`: the selector is checked before saving. A selector that matches several elements is pinned to the one shown; one that matches nothing becomes a visual-zone watch.
 2. **Create it:** `writ_create_monitor` with `url`, `selector` and `interval` (`"15m"`, `"1h"`, or seconds; `interval_minutes` still works).
    - No interval given: nothing is created. The answer is `needs_input` with the plan's options (checks per day, how long the allowance lasts, which need a higher plan) and a `tell_user` line: relay it, let the user pick, and call again with their `interval`. Don't pick one for them.
-   - The page is checked first. A public page needs no account. `needs_persona` means the value only shows after sign-in: follow the persona flow in `writ-signed-in-sites`. A bot check answers `needs_input` with options (a residential connection when the plan pays for it; otherwise Writ Desktop on the user's own computer, an upgrade, credits, or `try_anyway`): relay them, don't choose.
+   - The page is checked first. A public page needs no account. `needs_persona` means the value only shows after sign-in: follow the persona flow in `writ-signed-in-sites`.
+   - A bot check answers `needs_input` with options (a residential connection when the plan pays for it; otherwise Writ Desktop on the user's own computer, an upgrade, credits, or `try_anyway`): relay them, don't choose.
    - A price: `watch: "price"` (rejects a selector whose text holds no number).
    - No selector possible: `mode: "visual"` with `zone_text` exactly as the page prints the value (for example `"51,77 EUR"`). A zone fires on any visual change, so wire a change alert, not a threshold.
    - A value that lives in a JSON or XHR response: `extract` (for example `{"from": "json", "path": "data.price"}`) with `request_url`, and no browser at all.
-   - JavaScript-rendered pages: `requires_browser: true`. Behind a login: `persona_id`. Datacenter-blocked sites: `use_residential: true`.
+   - JavaScript-rendered pages: `requires_browser: true`. Behind a login: `persona_id`.
+   - Datacenter-blocked sites: `use_residential: true`.
    - An interval the plan doesn't allow is refused (`status: "refused"`, with the allowed options), not clamped: offer those to the user. One that is allowed but uses up the allowance early is created with a `warning`: pass it on.
 3. **Make it do something:** `writ_wire_monitor` with the `monitor_id` and an `action`:
    - `notify`: `channels` (for example `["email"]`) and a `message` template (`{{event.url}}`). Omitting `recipients` reaches every enabled recipient on the channel; the answer names who it reaches.

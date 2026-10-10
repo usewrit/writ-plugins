@@ -1,6 +1,6 @@
 ---
 name: writ-read-and-crawl
-description: Read web pages and collect whole sites or sections into datasets with Writ. Use when the user wants what a page says, a summary of a URL, the top N items of a listing and what each one says, several links fetched together, a page that a plain fetch could not open (403, bot wall, JavaScript-rendered, behind their sign-in), or every page of a site or section collected as rows to query, export or re-run later.
+description: Read web pages and collect whole sites or sections into datasets with Writ. Use when the user wants what a page says, a summary of a URL, the top N items of a listing and what each one says, several links fetched together, a page that a plain fetch could not open (JavaScript-rendered, or behind their sign-in), or every page of a site or section collected as rows to query, export or re-run later.
 license: MIT
 compatibility: Needs the Writ Cloud MCP server (https://api.usewrit.app/mcp) connected in the client; its tools are named writ_*.
 ---

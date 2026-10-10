@@ -1,6 +1,6 @@
 ---
 name: writ-signed-in-sites
-description: Work on websites where the user is signed in, through Writ personas (saved sign-in identities whose passwords and 2FA stay sealed in Writ). Use when a task needs the user's own account on a site (email, social, shop, bank, work portal), a page behind a login, a two-factor prompt, a CAPTCHA or a "confirm it's you" check, a purchase paid with the user's card (see also writ-payments), or when the user would otherwise have to paste a password or a card number into the chat.
+description: Work on websites where the user is signed in, through Writ personas (saved sign-in identities whose passwords and 2FA stay sealed in Writ). Use when a task needs the user's own account on a site (email, social, shop, bank, work portal), a page behind a login, a two-factor prompt, a CAPTCHA or a "confirm it's you" check, or when the user would otherwise have to paste a password or a card number into the chat.
 license: MIT
 compatibility: Needs the Writ Cloud MCP server (https://api.usewrit.app/mcp) connected in the client; its tools are named writ_*.
 ---
@@ -13,7 +13,7 @@ A **persona** is a saved sign-in identity in Writ: a site's username, the passwo
 
 Call `writ_personas` with `action: "list"` and the site's `domain` (for example `"github.com"`; it matches subdomains). Do this before opening a browser, starting a crawl or a build: finding the login wall halfway through wastes the session.
 
-- One fits: pass its `persona_id` to `writ_scrape`, `writ_crawl_site`, `writ_browser_use`, `writ_record_website`, `writ_website_to_api` or `writ_run_workflow`. The work runs signed in, from the persona's own residential exit. `writ_website_to_api` takes a cloud persona's number only.
+- One fits: pass its `persona_id` to `writ_scrape`, `writ_crawl_site`, `writ_browser_use`, `writ_record_website`, `writ_website_to_api` or `writ_run_workflow`. The work runs signed in, from the persona's own fixed exit IP. `writ_website_to_api` takes a cloud persona's number only.
 - Several fit: ask the user which account to use.
 - `action: "get"` inspects one; `include_runs: true` adds its recent runs.
 

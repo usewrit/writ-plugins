@@ -1,6 +1,6 @@
 ---
 name: writ-browser-tasks
-description: Do a task on a website in a real Writ cloud browser (click, fill a form, submit, search inside an app, change a setting, buy, book or post) and record it as a reusable workflow when it will come back. Use when the user asks for an action on a site rather than just its content, says "every time", "again", "weekly" or "record this", or wants a task on a site they are signed in to done for them.
+description: Do a task on a website in a real Writ cloud browser (click, fill a form, submit, search inside an app, change a setting, book or post) and record it as a reusable workflow when it will come back. Use when the user asks for an action on a site rather than just its content, says "every time", "again", "weekly" or "record this", or wants a task on a site they are signed in to done for them.
 license: MIT
 compatibility: Needs the Writ Cloud MCP server (https://api.usewrit.app/mcp) connected in the client; its tools are named writ_*.
 ---
