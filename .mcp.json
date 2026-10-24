@@ -2,7 +2,7 @@
   "mcpServers": {
     "writ-cloud": {
       "type": "http",
-      "url": "https://api.usewrit.app/mcp"
+      "url": "https://api.usewrit.app/mcp?payments=off"
     }
   }
 }

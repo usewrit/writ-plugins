@@ -11,7 +11,7 @@ Writ fits when:
 - the job will come back: record it once and every later run replays without a browser and without AI
 - the user wants to be told when a page changes — a price, a listing, a status
 
-The Writ Cloud MCP server's tools are named `writ_*`. Before building anything, check `writ_list_workflows`: a saved workflow replays without a browser. Behind a login, `writ_personas` finds the user's saved sign-in; never ask for a password.
+The Writ Cloud MCP server's tools are named `writ_*`. Before building anything, check `writ_list_workflows`: a saved workflow replays without a browser. Behind a login, `writ_personas` finds the user's saved sign-in; never ask for a password. Purchases and payments are set up by the user in the Writ app, not from the chat.
 
 Skills in this extension:
 
@@ -23,7 +23,6 @@ Skills in this extension:
 | `writ-desktop-devices` | Run Writ work on the user's own computer through a linked Writ desktop app instead of the cloud, with their own browser, logins, local vault and IP address. |
 | `writ-fix-workflows` | Diagnose and repair a saved Writ workflow that returns nothing, fails or has drifted, and edit a workflow in place (settings, persona, steps, functions, schedule and its agent skill). |
 | `writ-http-functions` | Build browserless API functions in Writ from a site's real network requests or its server-rendered HTML, so a saved workflow runs over plain HTTP with no browser and no AI. Covers capturing requests, defining and live-testing named functions, sign-in and token chains, row extraction from HTML or JSON, cursor pagination and multi-request flows. |
-| `writ-payments` | Buy something on a website for the user with Writ, paid with one of their cards or the card saved on the store, without a card number ever reaching the chat. |
 | `writ-read-and-crawl` | Read web pages and collect whole sites or sections into datasets with Writ. |
 | `writ-signed-in-sites` | Work on websites where the user is signed in, through Writ personas (saved sign-in identities whose passwords and 2FA stay sealed in Writ). |
 | `writ-watch-and-schedule` | Watch web pages for changes with Writ monitors and run saved workflows or crawls on a schedule. |

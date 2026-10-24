@@ -22,8 +22,8 @@ Writ fits when:
 
 ## What this plugin adds
 
-- **The Writ Cloud MCP server** at `https://api.usewrit.app/mcp` (Streamable HTTP). Your client signs in with OAuth the first time a Writ tool runs; no API key is stored in any file.
-- **11 skills** that teach the agent when and how to use each Writ tool:
+- **The Writ Cloud MCP server** at `https://api.usewrit.app/mcp?payments=off` (Streamable HTTP). Your client signs in with OAuth the first time a Writ tool runs; no API key is stored in any file.
+- **10 skills** that teach the agent when and how to use each Writ tool:
 
 | Skill | Use it for |
 | --- | --- |
@@ -33,7 +33,6 @@ Writ fits when:
 | `writ-desktop-devices` | Run Writ work on the user's own computer through a linked Writ desktop app instead of the cloud, with their own browser, logins, local vault and IP address. |
 | `writ-fix-workflows` | Diagnose and repair a saved Writ workflow that returns nothing, fails or has drifted, and edit a workflow in place (settings, persona, steps, functions, schedule and its agent skill). |
 | `writ-http-functions` | Build browserless API functions in Writ from a site's real network requests or its server-rendered HTML, so a saved workflow runs over plain HTTP with no browser and no AI. Covers capturing requests, defining and live-testing named functions, sign-in and token chains, row extraction from HTML or JSON, cursor pagination and multi-request flows. |
-| `writ-payments` | Buy something on a website for the user with Writ, paid with one of their cards or the card saved on the store, without a card number ever reaching the chat. |
 | `writ-read-and-crawl` | Read web pages and collect whole sites or sections into datasets with Writ. |
 | `writ-signed-in-sites` | Work on websites where the user is signed in, through Writ personas (saved sign-in identities whose passwords and 2FA stay sealed in Writ). |
 | `writ-watch-and-schedule` | Watch web pages for changes with Writ monitors and run saved workflows or crawls on a schedule. |
@@ -46,11 +45,11 @@ The plugin contains only these manifests, the skills (Markdown) and an icon. It 
 | Client | How |
 | --- | --- |
 | Claude Code | `/plugin marketplace add usewrit/writ-plugins` then `/plugin install writ@usewrit` |
-| Claude (claude.ai, Desktop, Cowork) | the Claude plugin directory, or Settings -> Connectors -> add `https://api.usewrit.app/mcp` |
-| ChatGPT | the ChatGPT plugin directory, or Settings -> Connectors -> Create (developer mode) -> `https://api.usewrit.app/mcp` |
+| Claude (claude.ai, Desktop, Cowork) | the Claude plugin directory, or Settings -> Connectors -> add `https://api.usewrit.app/mcp?payments=off` |
+| ChatGPT | the ChatGPT plugin directory, or Settings -> Connectors -> Create (developer mode) -> `https://api.usewrit.app/mcp?payments=off` |
 | Codex | `codex plugin marketplace add usewrit/writ-plugins` |
 | Gemini CLI | `gemini extensions install https://github.com/usewrit/writ-plugins` |
-| Cursor | the Cursor marketplace, or the MCP server alone: `cursor://anysphere.cursor-deeplink/mcp/install?name=writ-cloud&config=eyJ1cmwiOiAiaHR0cHM6Ly9hcGkudXNld3JpdC5hcHAvbWNwIn0=` |
+| Cursor | the Cursor marketplace, or the MCP server alone: `cursor://anysphere.cursor-deeplink/mcp/install?name=writ-cloud&config=eyJ1cmwiOiAiaHR0cHM6Ly9hcGkudXNld3JpdC5hcHAvbWNwP3BheW1lbnRzPW9mZiJ9` |
 | VS Code / GitHub Copilot | `copilot plugin install usewrit/writ-plugins`, or the MCP server alone from the GitHub MCP registry |
 
 ## What it sends and fetches
@@ -59,6 +58,11 @@ The plugin contains only these manifests, the skills (Markdown) and an icon. It 
 - Writ's cloud (or your own linked Writ desktop, when you choose it) fetches the web pages, runs the browsers and stores the data your workflows and crawls collect, in your Writ account.
 - Sign-ins are saved in Writ as personas: passwords and 2FA secrets stay sealed on Writ's side (or in your desktop's vault) and never pass through the model or the conversation.
 - Tools that can change something — act in a browser, run a workflow that writes, edit a saved workflow — are annotated as such, so your client asks before running them.
+- Money: this plugin places no order and moves no money. Its connection (`?payments=off`) has no payment tool and no purchase option, and the agent fills a cart only up to the checkout page, which the user finishes on the store's site. Purchases, bill payments and transfers are left to the user; purchases and payment workflows are set up by the user in the Writ app.
+
+## Staying within each site's terms
+
+Writ signs in only with the user's own saved accounts, crawls honor robots.txt by default, a CAPTCHA or "confirm it's you" check is handed to the user to complete, and nothing places an order or moves money from the chat. The user stays responsible for using each site within its terms.
 
 Privacy policy: https://usewrit.app/privacy · Terms: https://usewrit.app/terms · Support: https://usewrit.app/contact (support@usewrit.app)
 

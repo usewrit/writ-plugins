@@ -22,8 +22,7 @@ Before telling the user nothing matched, find out what the site actually answere
 | --- | --- |
 | Signed out, session error, login page in the response | `writ_personas` `action: "sign_in"` with the persona (`force: true` if the session looks fine but is not) |
 | No saved login for the site | the persona flow in `writ-signed-in-sites` |
-| Bot wall, 403, empty page from a datacenter IP | `writ_update_workflow` `patch` turning on residential egress (or pass `use_residential: true` on the run) |
-| Wrong country's results | `residential_country` on the run, or in the workflow's `patch` |
+| The site refuses Writ's servers (403, an empty page) | the run's answer carries `site_block` with the options this account has: relay its `tell_user` |
 | A selector no longer matches | `function_updates` on the function's step, or `step_updates` on a step that belongs to no function (read the outline first) |
 | A request the site changed | redefine the function (`writ-http-functions`) or `writ_create_http_extraction` |
 | A missing input | `writ_list_workflows` shows the declared inputs; pass it in `inputs` |
@@ -39,7 +38,6 @@ Before telling the user nothing matched, find out what the site actually answere
   - `script_edits` replace `old` with `new` at a `path`; `old` must match exactly once.
 - **Check first:** `validate_only: true` previews the edits and validates the HTTP grammar without saving, running JavaScript or sending requests. Pass the `expected_updated_at` you read: a 409 means someone else changed it, so read it again.
 - **Settings:** `patch` is a sparse settings patch: default persona, headless or fast mode, device routing, timeouts, retries, schedule, functions, sessions. Credentials are never set here; they belong to personas.
-- **Network settings:** residential egress and its country, and human behavior, are patched the same way.
 - **Steps by index:** `step_updates` merges into indexed steps (selectors, scripts, URLs, waits, extraction config). `replace_steps` replaces the whole list; use it only on purpose.
 - An `api_call` step's `config.function_name` binds it to the function that `writ_run_workflow` `function_name` selects.
 - A source edit (`function_updates`, `json_edits`, `script_edits`) answers with a receipt: `source_changes` and the new `updated_at`. Any other edit answers with the fields it changed; `verbose: true` returns the full definition.

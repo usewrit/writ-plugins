@@ -1,6 +1,6 @@
 ---
 name: writ-signed-in-sites
-description: Work on websites where the user is signed in, through Writ personas (saved sign-in identities whose passwords and 2FA stay sealed in Writ). Use when a task needs the user's own account on a site (email, social, shop, bank, work portal), a page behind a login, a two-factor prompt, a CAPTCHA or a "confirm it's you" check, or when the user would otherwise have to paste a password or a card number into the chat.
+description: Work on websites where the user is signed in, through Writ personas (saved sign-in identities whose passwords and 2FA stay sealed in Writ). Use when a task needs the user's own account on a site (email, social, shop, bank, work portal), a page behind a login, a two-factor prompt, a CAPTCHA or a "confirm it's you" check, or when the user would otherwise have to paste a password into the chat.
 license: MIT
 compatibility: Needs the Writ Cloud MCP server (https://api.usewrit.app/mcp) connected in the client; its tools are named writ_*.
 ---
@@ -46,10 +46,6 @@ This tool cannot create or edit a persona, and no password field exists on it by
 
 Personas of the user's linked Writ desktop appear in the list with `source: "device"` and ids like `device:<agent>:<id>`. Passing one to a tool from step 1 (all but `writ_website_to_api`, which takes a cloud persona's number only) sends the work to that desktop, which signs in from its own vault, on that machine and its IP; the credentials never leave it. `writ_devices` lists the linked desktops.
 
-## 6. Paying with the user's card
-
-A card works like a persona: it stays sealed in Writ, and you never see, type or store its number. Never ask for a card number, expiry date or security code in chat, and never click the button that places an order: browse to the checkout, then hand it over with `writ_payment` (`request` a card the user approves, `checkout` at the order button, `wait` for the outcome). The user confirms the order (email, the Writ app or Writ Desktop) and Writ places it. The whole flow is in the `writ-payments` skill.
-
 ## Before acting on an account
 
-Reading is safe. Anything that sends, posts, buys, deletes or changes a setting on the user's account needs their explicit go-ahead for that action, even when a persona makes it possible.
+Reading is safe, balances, statements and orders included. Anything that sends, posts, deletes or changes a setting on the user's account needs their explicit go-ahead for that action, even when a persona makes it possible. Moving money (an order, a payment, a bill payment, a transfer) is not done from the chat: leave the final step to the user on the site, or point them to usewrit.app to set up a payment workflow.

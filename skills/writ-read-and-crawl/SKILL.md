@@ -1,6 +1,6 @@
 ---
 name: writ-read-and-crawl
-description: Read web pages and collect whole sites or sections into datasets with Writ. Use when the user wants what a page says, a summary of a URL, the top N items of a listing and what each one says, several links fetched together, a page that a plain fetch could not open (JavaScript-rendered, or behind their sign-in), or every page of a site or section collected as rows to query, export or re-run later.
+description: Read web pages and collect whole sites or sections into datasets with Writ. Use when a plain fetch could not open the page (JavaScript-rendered, blocked, or behind the user's sign-in), when the user wants the top N items of a listing and what each one says, several links fetched together, or every page of a site or section collected as rows to query, export or re-run later.
 license: MIT
 compatibility: Needs the Writ Cloud MCP server (https://api.usewrit.app/mcp) connected in the client; its tools are named writ_*.
 ---
@@ -28,7 +28,7 @@ Then read the markdown and answer. Do not split a top-N ask into one call per pa
 
 When the page does not come back usable:
 
-- Blocked or a bot wall: `"use_residential": true` (and `residential_country`, for example `"ca"`, when the site serves a different page per country).
+- Refused by the site: the answer carries `site_block` with the options this account has; relay its `tell_user` and let the user choose.
 - Needs JavaScript: `"render_mode": "browser"`.
 - Behind the user's sign-in: `persona_id` (see the `writ-signed-in-sites` skill). Never sign in yourself and never ask for a password.
 - Long pages are cut at 12,000 characters (`_truncated`); `preview_chars: 0` returns the whole page.

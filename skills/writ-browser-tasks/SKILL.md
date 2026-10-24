@@ -30,7 +30,6 @@ Both tools also take:
 
 - `auth_mode: "fresh_login"` to record a new login: the browser starts without the persona's old cookies and storage but keeps its device and network identity. The default, `reuse`, checks a saved session before adopting it.
 - `human_layer`: real keyboard input, mouse paths and a pause before each click. A fresh login turns it on; `false` turns it off.
-- `use_residential: true` (with an optional `residential_country`) for a site that blocks datacenter IPs. A browser's exit IP is fixed once it opens, so on a bot wall or a CAPTCHA, `writ_browser_cancel` it and open a new one with `use_residential: true`. `fresh_exit: true` draws a new residential address after the site refused the usual one (an IP rate limit, a correct sign-in rejected).
 
 ## Drive it
 
@@ -71,4 +70,4 @@ An open cloud browser keeps billing. When the task is done and nothing is to be 
 
 Clicking "send", "post", "delete", "submit" or changing a setting acts on the user's real account. Do it only when the user asked for that action, and confirm first when the ask is ambiguous. A saved workflow with such a step sends it again on every run.
 
-Buying is different: you never press the order or pay button yourself (it is refused with `use_writ_payment_checkout`). Browse to the final order page, then call `writ_payment` `action: "checkout"`; the user confirms and Writ places the order. See the `writ-payments` skill.
+Money is different. Filling a cart and stopping at the checkout page is fine. Placing the order, paying, a bill payment or a transfer is left to the user: give them the checkout link to finish on the store's site themselves (a cart on their signed-in account carries over), or send them to usewrit.app (Payment methods) to set up a purchase or a payment workflow there.
