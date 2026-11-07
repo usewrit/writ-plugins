@@ -47,7 +47,7 @@ When the result goes to code, a spreadsheet or another agent, pass `output` inst
 
 ## The user's own desktop
 
-Data collected on a linked Writ desktop stays on it. Pass `device` (an agent id from `writ_devices`) to read it, or scope the connection with `writ_devices` `action: "use"` (see `writ-desktop-devices`).
+Data collected on a linked Writ desktop stays on it. Pass `device` (an agent id from `writ_devices_list`) to read it, or scope the connection with `writ_devices_use` (see `writ-desktop-devices`).
 
 ## Fresh or stored?
 

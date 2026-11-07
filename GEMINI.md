@@ -11,7 +11,7 @@ Writ fits when:
 - the job will come back: record it once and every later run replays without a browser and without AI
 - the user wants to be told when a page changes — a price, a listing, a status
 
-The Writ Cloud MCP server's tools are named `writ_*`. Before building anything, check `writ_list_workflows`: a saved workflow replays without a browser. Behind a login, `writ_personas` finds the user's saved sign-in; never ask for a password. Purchases and payments are set up by the user in the Writ app, not from the chat.
+The Writ Cloud MCP server's tools are named `writ_*`. Before building anything, check `writ_list_workflows`: a saved workflow replays without a browser. Behind a login, `writ_personas_list` finds the user's saved sign-in; never ask for a password. Purchases and payments are set up by the user in the Writ app, not from the chat.
 
 Skills in this extension:
 

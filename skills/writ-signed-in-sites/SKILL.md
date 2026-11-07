@@ -11,11 +11,11 @@ A **persona** is a saved sign-in identity in Writ: a site's username, the passwo
 
 ## 1. Find the persona before anything starts
 
-Call `writ_personas` with `action: "list"` and the site's `domain` (for example `"github.com"`; it matches subdomains). Do this before opening a browser, starting a crawl or a build: finding the login wall halfway through wastes the session.
+Call `writ_personas_list` with the site's `domain` (for example `"github.com"`; it matches subdomains). Do this before opening a browser, starting a crawl or a build: finding the login wall halfway through wastes the session.
 
 - One fits: pass its `persona_id` to `writ_scrape`, `writ_crawl_site`, `writ_browser_use`, `writ_record_website`, `writ_website_to_api` or `writ_run_workflow`. The work runs signed in, from the persona's own fixed exit IP. `writ_website_to_api` takes a cloud persona's number only.
 - Several fit: ask the user which account to use.
-- `action: "get"` inspects one; `include_runs: true` adds its recent runs.
+- `writ_personas_get` inspects one; `include_runs: true` adds its recent runs.
 
 Read the list once per turn; do not list again what you just read.
 
@@ -24,17 +24,17 @@ Read the list once per turn; do not list again what you just read.
 The `list` answer is then `persona_needed`, with a worded `tell_user`, a `create_url` and a `link_id`.
 
 1. Relay `tell_user` and `create_url` to the user before starting the task. The link opens a small Writ window with only the persona form, pre-filled for that site.
-2. Call `writ_personas` with `action: "wait"` and that `link_id`. It is one held call (up to 75 s) that answers the moment the user saves the persona, with its `persona_id`, or says they declined. On `still_waiting`, call it once more the same way.
+2. Call `writ_personas_wait` with that `link_id`. It is one held call (up to 75 s) that answers the moment the user saves the persona, with its `persona_id`, or says they declined. On `still_waiting`, call it once more the same way.
 3. Carry on with the task. The user does not need to come back and tell you.
 
-To ask for another account on a site that already has one: `action: "request"` with `domain` and a one-line `why` the user sees in the window.
+To ask for another account on a site that already has one: `writ_personas_request` with `domain` and a one-line `why` the user sees in the window.
 
-This tool cannot create or edit a persona, and no password field exists on it by design.
+These tools cannot create or edit a persona, and no password field exists on them by design.
 
 ## 3. Keep the session warm
 
-- A run that reports a sign-in or session error: `writ_personas` with `action: "sign_in"` and the `persona_id` runs its login now. `force: true` re-logs in even when the session looks usable.
-- A persona that cannot sign itself in yet: `action: "record_login"` has Writ's server-side AI sign in once and save that flow as the persona's login workflow. Pass `login_url` when you know the exact sign-in page.
+- A run that reports a sign-in or session error: `writ_personas_sign_in` with the `persona_id` runs its login now. `force: true` re-logs in even when the session looks usable.
+- A persona that cannot sign itself in yet: `writ_personas_record_login` has Writ's server-side AI sign in once and save that flow as the persona's login workflow. Pass `login_url` when you know the exact sign-in page.
 
 ## 4. Two-factor codes, CAPTCHAs and decisions
 
@@ -44,7 +44,7 @@ This tool cannot create or edit a persona, and no password field exists on it by
 
 ## 5. The user's own desktop
 
-Personas of the user's linked Writ desktop appear in the list with `source: "device"` and ids like `device:<agent>:<id>`. Passing one to a tool from step 1 (all but `writ_website_to_api`, which takes a cloud persona's number only) sends the work to that desktop, which signs in from its own vault, on that machine and its IP; the credentials never leave it. `writ_devices` lists the linked desktops.
+Personas of the user's linked Writ desktop appear in the list with `source: "device"` and ids like `device:<agent>:<id>`. Passing one to a tool from step 1 (all but `writ_website_to_api`, which takes a cloud persona's number only) sends the work to that desktop, which signs in from its own vault, on that machine and its IP; the credentials never leave it. `writ_devices_list` lists the linked desktops.
 
 ## Before acting on an account
 

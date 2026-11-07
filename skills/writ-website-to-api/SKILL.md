@@ -35,7 +35,7 @@ The first answer may be a **proposal** instead of a build:
 Call it with the `build_id` and `wait: true`: one held call (up to 75 s) that follows every rung. If it is still running at the ceiling, call it once more the same way. Never poll in a loop, and do not open a browser or start a second build for the same site meanwhile.
 
 - `succeeded`: it returns the `workflow_id` and a `run_example`. `verified: false` means the functions are candidates until a real run proves them; say so.
-- `needs_guidance`: the mechanical rungs are done and the build is yours to finish. Call `writ_website_to_api` with `mode: "guided"` and the `build_id`; it opens a browser bound to the build's map (`writ_browser_context` with `section: "map"`). Drive it with `writ_browser_act`, define and test functions with `writ_browser_compose` (the `writ-http-functions` skill), then `writ_browser_save`.
+- `needs_guidance`: the mechanical rungs are done and the build is yours to finish. Call `writ_website_to_api` with `mode: "guided"` and the `build_id`; it opens a browser bound to the build's map (`writ_browser_context` with `section: "map"`). Drive it with `writ_browser_act`, define and test functions with the `writ_browser_compose_*` tools (the `writ-http-functions` skill), then `writ_browser_save`.
 - `escalations` says why each earlier rung handed over; quote it when you explain why a browser was needed. When a crawl rung reports that `robots.txt` refused it and the user vouches for the site, start again with `respect_robots: false`. It only affects the crawl rungs (`mode: "crawl"` or `"browser"`), never the AI or guided browser rungs.
 
 ## 3. Run it and prove it
@@ -59,7 +59,6 @@ A function that creates, posts, sends or deletes is sent on a normal run (`mutat
 
 - **REST endpoint:** `writ_expose_workflow_api` returns a POST URL that runs the workflow and returns its JSON. Repeat calls reuse the endpoint.
 - **API docs:** OpenAPI 3, Markdown or Postman at `GET /api/v1/workflows/{workflow_id}/api-docs`.
-- **Its own MCP tool:** `writ_pin_workflow_tool` adds a `run_<name>` tool.
 - **On a clock:** `writ_set_schedule` (see `writ-watch-and-schedule`).
 
 ## 5. When a run returns nothing
@@ -69,7 +68,7 @@ The full repair loop is the `writ-fix-workflows` skill. In short:
 An empty answer is not proof that nothing matched.
 
 1. `writ_workflow_runs` shows the run's status and error.
-2. `writ_diagnose_http_workflow` with the `task_id` shows what every request was answered with. A 200 with an empty feed usually means the session was signed out or blocked: refresh the persona (`writ_personas` `sign_in`).
+2. `writ_diagnose_http_workflow` with the `task_id` shows what every request was answered with. A 200 with an empty feed usually means the session was signed out or blocked: refresh the persona (`writ_personas_sign_in`).
 3. Fix the workflow in place with `writ_update_workflow` (`patch`, `step_updates`), or `writ_create_http_extraction` for multi-request extractions, then run it again on two inputs.
 
 Answer questions about data already collected from `writ_search_data` or `writ_workflow_data` before running anything (the `writ-collected-data` skill).

@@ -20,19 +20,19 @@ Before telling the user nothing matched, find out what the site actually answere
 
 | Symptom | Fix |
 | --- | --- |
-| Signed out, session error, login page in the response | `writ_personas` `action: "sign_in"` with the persona (`force: true` if the session looks fine but is not) |
+| Signed out, session error, login page in the response | `writ_personas_sign_in` with the persona (`force: true` if the session looks fine but is not) |
 | No saved login for the site | the persona flow in `writ-signed-in-sites` |
 | The site refuses Writ's servers (403, an empty page) | the run's answer carries `site_block` with the options this account has: relay its `tell_user` |
 | A selector no longer matches | `function_updates` on the function's step, or `step_updates` on a step that belongs to no function (read the outline first) |
 | A request the site changed | redefine the function (`writ-http-functions`) or `writ_create_http_extraction` |
 | A missing input | `writ_list_workflows` shows the declared inputs; pass it in `inputs` |
 
-## Edit a workflow: `writ_update_workflow`
+## Read and edit a workflow: `writ_get_workflow`, `writ_update_workflow`
 
-- **Read it:** call it with only `workflow_id` (or `workflow`). It returns a compact outline: each step's zero-based index, stable step id, type, function and source hash, plus `updated_at`. `verbose: true` returns the full definition, with its agent skill (`skill_md`).
-- **Read one function:** `function_name` (plus `step_id` when the function has several steps, and a JSON Pointer `path` such as `/config/flow`) returns that source only, windowed by `offset` and `max_chars`. `section: "flow"` with `function_name` lists the nested flow nodes and their paths.
-- **Operators:** `section: "contract"` lists every HTTP flow operator with its operands and what it does; `operator` picks one. It needs no workflow.
-- **Repair a function:** prefer `function_updates`, a list of `{function_name, step_id?, expected_hash?, patch?, json_edits?, script_edits?}`:
+- **Read it:** `writ_get_workflow` with `workflow_id` (or `workflow`). It returns a compact outline: each step's zero-based index, stable step id, type, function and source hash, plus `updated_at`. `verbose: true` returns the full definition, with its agent skill (`skill_md`).
+- **Read one function:** `writ_get_workflow` with `function_name` (plus `step_id` when the function has several steps, and a JSON Pointer `path` such as `/config/flow`) returns that source only, windowed by `offset` and `max_chars`. `section: "flow"` with `function_name` lists the nested flow nodes and their paths.
+- **Operators:** `writ_get_workflow` with `section: "contract"` lists every HTTP flow operator with its operands and what it does; `operator` picks one. It needs no workflow.
+- **Repair a function:** `writ_update_workflow`; prefer `function_updates`, a list of `{function_name, step_id?, expected_hash?, patch?, json_edits?, script_edits?}`:
   - `patch` merges the step's type, config and enabled flag (objects merge, arrays replace).
   - `json_edits` change one nested value with `test`, `add`, `replace` or `remove` and a `path`, without rewriting the program.
   - `script_edits` replace `old` with `new` at a `path`; `old` must match exactly once.

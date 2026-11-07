@@ -9,7 +9,7 @@ compatibility: Needs the Writ Cloud MCP server (https://api.usewrit.app/mcp) con
 
 | The user wants | Build |
 | --- | --- |
-| "Tell me when this page, price or status changes" | a monitor: `writ_create_monitor`, then `writ_wire_monitor` |
+| "Tell me when this page, price or status changes" | a monitor: `writ_create_monitor`, then a `writ_wire_monitor_*` tool |
 | "Every morning, get me X" | a saved workflow, then `writ_set_schedule` (a crawl: a scheduled automation, below) |
 | "…and email it to me", "when A finishes, run B", "alert me when a run fails" | `writ_create_automation` (the `writ-automations` skill) |
 
@@ -25,10 +25,10 @@ compatibility: Needs the Writ Cloud MCP server (https://api.usewrit.app/mcp) con
    - A value that lives in a JSON or XHR response: `extract` (for example `{"from": "json", "path": "data.price"}`) with `request_url`, and no browser at all.
    - JavaScript-rendered pages: `requires_browser: true`. Behind a login: `persona_id`.
    - An interval the plan doesn't allow is refused (`status: "refused"`, with the allowed options), not clamped: offer those to the user. One that is allowed but uses up the allowance early is created with a `warning`: pass it on.
-3. **Make it do something:** `writ_wire_monitor` with the `monitor_id` and an `action`:
-   - `notify`: `channels` (for example `["email"]`) and a `message` template (`{{event.url}}`). Omitting `recipients` reaches every enabled recipient on the channel; the answer names who it reaches.
-   - `workflow`: run a saved workflow on each change.
-   - `ai_task`: wake an AI agent with a `prompt` ("check whether the price dropped below $500 and summarize"). It opens the page with the change and its values. `cooldown_minutes` limits how often it wakes.
+3. **Make it do something**, with the `monitor_id`:
+   - `writ_wire_monitor_notify`: `channels` (for example `["email"]`) and a `message` template (`{{event.url}}`). Omitting `recipients` reaches every enabled recipient on the channel; the answer names who it reaches.
+   - `writ_wire_monitor_workflow`: run a saved workflow on each change.
+   - `writ_wire_monitor_ai_task`: wake an AI agent with a `prompt` ("check whether the price dropped below $500 and summarize"). It opens the page with the change and its values. `cooldown_minutes` limits how often it wakes.
    - A price watch takes `threshold`: the action then runs once, when a check reads a price at or below it, not on every change. `threshold_op` picks the side: `lte` (at or below) is the default, `lt` is strictly below ("under", "below", "less than"), `gte` and `gt` watch for a rise. Pass what the user's words say. Omit `threshold` for an action on any change.
 4. **Buying when the price drops** is set up by the user in usewrit.app (the monitor's buy setting), not from the chat. Point them there. A monitor wired here can still alert them, or run a workflow that stops before checkout.
 

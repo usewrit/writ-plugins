@@ -13,7 +13,7 @@ An automation is an **event** plus one or more **actions**. `writ_create_automat
 
 | The user wants | Call |
 | --- | --- |
-| A notification, a workflow or an agent when a watched page changes | `writ_wire_monitor` on the monitor (see `writ-watch-and-schedule`) |
+| A notification, a workflow or an agent when a watched page changes | `writ_wire_monitor_notify`, `writ_wire_monitor_workflow` or `writ_wire_monitor_ai_task` on the monitor (see `writ-watch-and-schedule`) |
 | Something when a workflow or crawl finishes, starts or fails | `writ_create_automation` with `when` and the action arguments |
 | Actions at a time of day or on an interval | `writ_create_automation` with `when: "scheduled"` and `schedule` |
 | Something when another system calls a URL (a form, a CRM, a script) | `writ_create_automation` with `when: "webhook_received"`, which mints the URL |
@@ -27,7 +27,7 @@ Every automation needs a `name` and at least one of `run_workflow`, `notify` or 
 - `crawl_completed`, `crawl_failed`: after any crawl on the account (saved, scheduled or one-off). Narrow it to one site with the root event block's `seed_host` in a `blocks` tree, or a condition on `{{seed_host}}`.
 - `ai_session_completed`, `ai_session_started`.
 - `scheduled`: a clock. `schedule` is `{"kind": "interval", "interval_minutes": 60}`, `{"kind": "daily", "time": "08:00", "tz": "America/Toronto"}` or `{"kind": "weekly", "time": "08:00", "days": [1, 3, 5], "tz": "Europe/Paris"}` (1 = Monday).
-- `change_detected`: name the monitor in `target_id` (the `monitor_id` from `writ_create_monitor`), and `target_selector_id` for one of its selectors. `writ_wire_monitor` is the simpler path.
+- `change_detected`: name the monitor in `target_id` (the `monitor_id` from `writ_create_monitor`), and `target_selector_id` for one of its selectors. The `writ_wire_monitor_*` tools are the simpler path.
 - `webhook_received`: another system POSTs to a signed URL that Writ mints. See [On a webhook](#on-a-webhook).
 
 ## Actions

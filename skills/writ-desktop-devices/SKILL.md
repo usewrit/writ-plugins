@@ -11,20 +11,20 @@ A **linked Writ desktop** is the Writ desktop app, signed in to the same account
 
 ## See what is linked
 
-`writ_devices` (`action: "list"`, the default) shows each linked desktop, whether it is connected right now, and how many local workflows and personas it offers. A desktop with workflows that reach its local network carries a `local_network` line saying how many run there, and the answer adds a `local_network_note`.
+`writ_devices_list` shows each linked desktop, whether it is connected right now, and how many local workflows and personas it offers. A desktop with workflows that reach its local network carries a `local_network` line saying how many run there, and the answer adds a `local_network_note`.
 
 ## Scope the connection or target one call
 
-- **Everything, for this connection:** `writ_devices` `action: "use"` with `device` (the agent id or exact name). Runs, browser sessions, desktop workflows and personas, run history, data and monitors then target that desktop. `action: "clear"` removes the scope.
-- **One call:** pass `device` (an agent id from the list) on the tools that take it: `writ_run_workflow`, `writ_scrape`, `writ_crawl_site`, `writ_workflow_data`, `writ_search_data`, `writ_workflow_runs`, `writ_create_monitor`, `writ_wire_monitor`, `writ_website_to_api` (`execution_target`), `writ_record_website`.
+- **Everything, for this connection:** `writ_devices_use` with `device` (the agent id or exact name). Runs, browser sessions, desktop workflows and personas, run history, data and monitors then target that desktop. `writ_devices_clear` removes the scope.
+- **One call:** pass `device` (an agent id from the list) on the tools that take it: `writ_run_workflow`, `writ_scrape`, `writ_crawl_site`, `writ_workflow_data`, `writ_search_data`, `writ_workflow_runs`, `writ_create_monitor`, the `writ_wire_monitor_*` tools, `writ_website_to_api` (`execution_target`), `writ_record_website`.
 - **Browser sessions:** `writ_browser_use` with `execution_target`: `"local"` requires the desktop, `"auto"` prefers it when online and falls back to the cloud, `"cloud"` is the fleet.
 
 ## Desktop workflows and personas
 
 - `writ_list_workflows` includes the desktop's own workflows (`runs_on: "desktop"`, ids like `local:<id>`). Run one with `writ_run_workflow` and that id; it runs on the desktop.
 - A workflow that reaches a desktop's local network (for example an intranet page or a shop computer) runs only on that desktop. Its `writ_list_workflows` row says so: `runs_on: "desktop"`, `agent_id`, `reaches_local_network: true` and a `venue` line naming the machine.
-- `writ_personas` lists the desktop's personas with `source: "device"` and ids like `device:<agent>:<id>`, name and site only. Passing one as `persona_id` sends the work to that desktop, which signs in only on the persona's own site.
-- `writ_devices` `action: "monitors"` lists the desktop's monitors; `action: "datasets"` lists what its exposed workflows collected.
+- `writ_personas_list` lists the desktop's personas with `source: "device"` and ids like `device:<agent>:<id>`, name and site only. Passing one as `persona_id` sends the work to that desktop, which signs in only on the persona's own site.
+- `writ_devices_monitors` lists the desktop's monitors; `writ_devices_datasets` lists what its exposed workflows collected.
 
 ## When the desktop is offline
 

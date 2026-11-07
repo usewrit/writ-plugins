@@ -44,7 +44,7 @@ Call `writ_browser_use` or `writ_record_website` once per task, then `writ_brows
 
 - After a navigate, a click or a select that changes the page, end the batch and look at the new page before acting on it.
 - Look before you click: `query_dom`, `find_text`, `read_text` and `list_candidates` (repeating rows) are cheaper than `get_dom`. `writ_browser_context` re-reads the live page; `section: "lists"` returns its lists.
-- A site's real API: `capture_network`, then search it with `writ_browser_network`.
+- A site's real API: `capture_network`, then search it with `writ_browser_network_search` and read one call with `writ_browser_network_detail`.
 - Signing in with a persona: the session is already signed in, or `twofa` mints the code server-side. Read the challenge first and pass the method the page uses as `challenge_method` (`sms`, `email`, `authenticator` or `other`). A CAPTCHA or a check only the user can pass: `writ_browser_ask_user` (see `writ-signed-in-sites`).
 
 ## Make the recording reusable
@@ -52,7 +52,7 @@ Call `writ_browser_use` or `writ_record_website` once per task, then `writ_brows
 - **Inputs:** write a value the user will change as `{{name}}` in the action and pass the real value in `inputs`. The page gets the real value, the saved step keeps `{{name}}`, and `name` becomes a workflow input.
 - **Data:** record an `extract` action (`variable` plus a read-only script) at the point the data shows. Its result comes back in the same answer; check it before saving.
 - **Secrets:** fill a password with `data_key`, never a literal value.
-- **Named functions, input descriptions, explicit steps:** `writ_browser_compose` (`define_function`, `set_inputs`, `add_steps`, `test_function`).
+- **Named functions, input descriptions, explicit steps:** the `writ_browser_compose_*` tools (`writ_browser_compose_define_function`, `writ_browser_compose_set_inputs`, `writ_browser_compose_add_steps`, `writ_browser_compose_test_function`).
 
 ## Save, then prove it
 
@@ -60,7 +60,7 @@ Call `writ_browser_use` or `writ_record_website` once per task, then `writ_brows
 2. Run it with `writ_run_workflow` on **two different input values** and check the answers differ. Only then report it done.
 3. A run that returns nothing: `writ_diagnose_http_workflow` with the run's `task_id`, then fix it with `writ_update_workflow` (the `writ-fix-workflows` skill).
 
-Optional next steps: `writ_pin_workflow_tool` gives it its own `run_<name>` tool, `writ_set_schedule` runs it on a clock (`writ-watch-and-schedule`), `writ_expose_workflow_api` gives it a REST endpoint. To make it run without a browser, see `writ-http-functions`.
+Optional next steps: `writ_set_schedule` runs it on a clock (`writ-watch-and-schedule`), `writ_expose_workflow_api` gives it a REST endpoint. To make it run without a browser, see `writ-http-functions`.
 
 ## Close what you open
 

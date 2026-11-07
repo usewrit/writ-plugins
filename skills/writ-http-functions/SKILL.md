@@ -17,27 +17,27 @@ In a browser session (`writ_browser_use`, `writ_record_website`, or `writ_websit
 
 1. Reach the state that shows the data (a search, a filter, a page 2).
 2. `writ_browser_act` with `{"action": "capture_network"}`. To catch a POST (login, search, submit), perform the action that triggers it, then capture.
-3. `writ_browser_network` with `operation: "search"` (filter by `query` or `method`) lists the calls; `operation: "detail"` with `index` returns one in full: method, URL, headers, request body, response body.
+3. `writ_browser_network_search` (filter by `query` or `method`) lists the calls; `writ_browser_network_detail` with `index` returns one in full: method, URL, headers, request body, response body.
 
 The server-rendered shortcut: when the rows are already in the page's HTML, `writ_scrape` with `format: "html"` shows them. No capture is needed.
 
-## 2. Define it: `writ_browser_compose` `define_function`
+## 2. Define it: `writ_browser_compose_define_function`
 
 ```json
-{"session_id": "<id>", "operation": "define_function", "payload": {
-  "name": "quotes.list", "fn_type": "api", "from_index": 3,
-  "request": {"url": "https://site.example/api/quotes?page={{page}}"},
-  "input_variables": [{"name": "page", "example": "1"}],
-  "response_extractions": {"quotes": {"from": "json", "path": "quotes"},
-                           "has_next": {"from": "json", "path": "has_next"}},
-  "then_save": {"name": "Quotes API"}}}
+{"session_id": "<id>",
+ "name": "quotes.list", "fn_type": "api", "from_index": 3,
+ "request": {"url": "https://site.example/api/quotes?page={{page}}"},
+ "input_variables": [{"name": "page", "example": "1"}],
+ "response_extractions": {"quotes": {"from": "json", "path": "quotes"},
+                          "has_next": {"from": "json", "path": "has_next"}},
+ "then_save": {"name": "Quotes API"}}
 ```
 
 - `from_index` seeds method, URL, headers and body from the captured call; override `request` fields to put `{{inputs}}` in them.
 - Every function is **live-tested** as you define it (`sample_inputs`, or each input's `example`). A failed test keeps nothing: fix it and define it again with the same name.
 - `then_save` defines, tests and saves in one call.
 - Name functions `<surface>.<verb>` so they group: `orders.list`, `orders.get`, `orders.create`.
-- Deterministic alternative for an authenticated GraphQL/RPC call or a form submit: `compile_function` with `from_index`. It traces session tokens to a sign-in function and generates per-call ids (`{{uuid()}}`, `{{timestamp_ms()}}`).
+- Deterministic alternative for an authenticated GraphQL/RPC call or a form submit: `writ_browser_compose_compile_function` with `from_index`. It traces session tokens to a sign-in function and generates per-call ids (`{{uuid()}}`, `{{timestamp_ms()}}`).
 
 ### Extraction sources (`response_extractions`)
 
@@ -62,13 +62,13 @@ Use an ordered, named graph of functions:
 
 ## 4. Inputs and pagination
 
-- `set_inputs` declares each caller parameter (`default`, `description`, `required`, `example`). Every `{{name}}` must be a declared input, a credential, a `{{cookie:}}` or `{{extracted:}}` reference, or produced by an earlier step, or the save is refused.
+- `writ_browser_compose_set_inputs` declares each caller parameter (`default`, `description`, `required`, `example`). Every `{{name}}` must be a declared input, a credential, a `{{cookie:}}` or `{{extracted:}}` reference, or produced by an earlier step, or the save is refused.
 - Declare search, filter, limit and page, offset or cursor inputs, and return `next_cursor`, `next_offset` or `has_more`.
 - Never append Writ-only controls to the site's URL.
 
 ## 5. When one request is not enough
 
-Request loops, GraphQL descriptor discovery, recursive mapping, cross-page dedupe, sorting or cursor walks need a flow (`api_call.config.flow`). On a saved workflow, `writ_create_http_extraction` generates one from a plain-language `goal`, `request_samples` (calls from `writ_browser_network`) and `desired_inputs`:
+Request loops, GraphQL descriptor discovery, recursive mapping, cross-page dedupe, sorting or cursor walks need a flow (`api_call.config.flow`). On a saved workflow, `writ_create_http_extraction` generates one from a plain-language `goal`, `request_samples` (calls from `writ_browser_network_detail`) and `desired_inputs`:
 
 1. Call it with `apply: false` and review the draft and its validation.
 2. Call it again with `apply: true`.
