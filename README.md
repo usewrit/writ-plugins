@@ -1,6 +1,19 @@
-# Writ
+<div align="center">
+  <a href="https://usewrit.app"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/cover-dark.png">
+    <img src="./assets/cover-light.png" alt="Writ plugin: turn a website into something your agent can call. usewrit.app" width="100%">
+  </picture></a>
 
-![Writ](assets/icon.png)
+  <p align="center">
+    <a href="https://usewrit.app"><b>usewrit.app</b></a> ·
+    <a href="https://usewrit.app/docs/mcp/"><b>Docs</b></a> ·
+    <a href="#install"><b>Install</b></a> ·
+    <a href="#what-this-plugin-adds"><b>What it adds</b></a> ·
+    <a href="https://usewrit.app/privacy/"><b>Privacy</b></a>
+  </p>
+</div>
+
+# Writ
 
 Writ turns a website into something you can call: read a page, collect a site, build a real API from it, or run a task on a site the user is signed in to.
 
